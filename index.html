@@ -1,41 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kavach AI</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kavach AI</title>
+
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <div class="container">
-    <h1>🛡️ Kavach AI</h1>
-    <p class="subtitle">
-      Paste suspicious text and check scam probability
-    </p>
+<div class="container">
 
-    <textarea
-      id="message"
-      placeholder="Paste SMS, Email or WhatsApp message..."
-    ></textarea>
+<h1>🛡️ Kavach AI</h1>
 
-    <button onclick="analyze()">
-      Analyze Message
-    </button>
-    <button id="speakBtn" onclick="speak()">
-      Speak Result
-    </button>
+<p class="subtitle">
+Paste suspicious text and check scam probability
+</p>
 
-    <div id="result" class="hidden">
-      <div class="progress">
-        <div id="bar"></div>
-      </div>
-      <h2 id="score"></h2>
-      <h3 id="verdict"></h3>
-      <div id="reason"></div>
-    </div>
-  </div>
+<textarea
+id="message"
+placeholder="Paste SMS, Email or WhatsApp message..."
+></textarea>
 
-  <script src="script.js"></script>
+<button onclick="analyze()">
+Analyze Message
+</button>
+
+<button
+id="speakBtn"
+onclick="speak()"
+style="display:none;"
+>
+Speak Result
+</button>
+
+<div id="result" class="hidden">
+
+<div class="progress">
+<div id="bar"></div>
+</div>
+
+<h2 id="score"></h2>
+
+<h3 id="verdict"></h3>
+
+<div id="reason"></div>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
 </body>
 </html>
