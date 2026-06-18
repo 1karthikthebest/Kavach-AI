@@ -1,78 +1,202 @@
 let voiceText = "";
 
-async function analyze() {
-    const text = document.getElementById("message").value.trim();
+async function analyze(){
 
-    if (!text) {
-        alert("Enter some text");
-        return;
-    }
+const text =
+document
+.getElementById("message")
+.value
+.trim();
 
-    // Reset UI states before dynamic animation loading
-    document.getElementById("result").classList.remove("hidden");
-    document.getElementById("reason").innerHTML = "Analyzing...";
-    document.getElementById("score").innerHTML = "";
-    document.getElementById("verdict").innerHTML = "";
-    
-    const bar = document.getElementById("bar");
-    bar.className = ""; 
-    bar.style.width = "0%";
+if(!text){
 
-    try {
-        const response = await fetch("http://127.0.0.1:5000/check", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ text: text })
-        });
+alert("Enter some text");
 
-        const data = await response.json();
-        const score = data.score || 0;
+return;
 
-        voiceText = `${data.verdict}. ${data.reason}`;
-
-        // Add dynamic CSS bar width animations
-        setTimeout(() => {
-            bar.style.width = score + "%";
-            if (score < 35) {
-                bar.className = "safe";
-            } else if (score < 70) {
-                bar.className = "warning";
-            } else {
-                bar.className = "danger";
-            }
-        }, 100);
-
-        document.getElementById("score").innerHTML = score + "% Scam Probability";
-        document.getElementById("verdict").innerHTML = data.verdict;
-        document.getElementById("reason").innerHTML = data.reason;
-
-    } catch (error) {
-        console.error(error);
-        document.getElementById("reason").innerHTML = "Server error or offline.";
-    }
 }
 
-async function speak() {
-    if (!voiceText) {
-        alert("Analyze first");
-        return;
-    }
+document
+.getElementById("result")
+.classList
+.remove("hidden");
 
-    try {
-        const response = await fetch("http://127.0.0.1:5000/voice", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ text: voiceText })
-        });
+document
+.getElementById("reason")
+.innerHTML="Analyzing...";
 
-        if (!response.ok) throw new Error("Audio generation failed");
+document
+.getElementById("score")
+.innerHTML="";
 
-        const blob = await response.blob();
-        const audio = new Audio(URL.createObjectURL(blob));
-        audio.play();
+document
+.getElementById("verdict")
+.innerHTML="";
 
-    } catch (e) {
-        console.error(e);
-        alert("Voice generation failed");
-    }
+const bar =
+document
+.getElementById("bar");
+
+bar.className="";
+
+bar.style.width="0%";
+
+try{
+
+const response=
+await fetch(
+"http://127.0.0.1:5000/check",
+{
+
+method:"POST",
+
+headers:{
+"Content-Type":
+"application/json"
+},
+
+body:
+JSON.stringify({
+text
+})
+
+}
+
+);
+
+const data=
+await response.json();
+
+const score=
+data.score || 0;
+
+voiceText=
+`${data.verdict}. ${data.reason}`;
+
+setTimeout(()=>{
+
+bar.style.width=
+score+"%";
+
+if(score<35){
+
+bar.className=
+"safe";
+
+}
+
+else if(score<70){
+
+bar.className=
+"warning";
+
+}
+
+else{
+
+bar.className=
+"danger";
+
+}
+
+},100);
+
+document
+.getElementById("score")
+.innerHTML=
+score+
+"% Scam Probability";
+
+document
+.getElementById("verdict")
+.innerHTML=
+data.verdict;
+
+document
+.getElementById("reason")
+.innerHTML=
+data.reason;
+
+document
+.getElementById("speakBtn")
+.style.display=
+"block";
+
+}
+
+catch(e){
+
+console.log(e);
+
+document
+.getElementById("reason")
+.innerHTML=
+"Server error or offline.";
+
+}
+
+}
+
+async function speak(){
+
+if(!voiceText){
+
+alert(
+"Analyze first"
+);
+
+return;
+
+}
+
+try{
+
+const response=
+await fetch(
+"http://127.0.0.1:5000/voice",
+{
+
+method:"POST",
+
+headers:{
+"Content-Type":
+"application/json"
+},
+
+body:
+JSON.stringify({
+text:voiceText
+})
+
+}
+
+);
+
+if(
+!response.ok
+)
+throw Error();
+
+const blob=
+await response.blob();
+
+const audio=
+new Audio(
+URL.createObjectURL(
+blob
+)
+);
+
+audio.play();
+
+}
+
+catch{
+
+alert(
+"Voice generation failed"
+);
+
+}
+
 }
