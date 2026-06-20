@@ -1,8 +1,3 @@
-
-Karthikeya Gaje <rskakarthik@gmail.com>
-19:01 (1 minute ago)
-to me
-
 from flask import Flask, request, jsonify
 import requests
 import os
